@@ -69,6 +69,24 @@ export function applyGravity(obj, force) {
     obj.acceleration = mulVec2ByScalar(obj.acceleration, 0);
 }
 
+export function magnitude(obj) {
+    return Math.sqrt(obj.x ** 2 + obj.y ** 2);
+}
+
+export function normalize(vector) {
+    let mag = magnitude(vector);
+    return vec2(vector.x / mag, vector.y / mag);
+}
+
+export function distanceBetweenCircles(obj1, obj2) {
+    return subVec2(obj1.position, obj2.position);    
+}
+
+export function colliding(obj1, obj2) {
+    let vecDistance = distanceBetweenCircles(obj1, obj2);
+    return magnitude(vecDistance) <= obj1.radius + obj2.radius;
+}
+
 export function setEdgesToCircle(obj, canvas) {
     if (obj.position.x < obj.radius || obj.position.x > canvas.width - obj.radius) {
         obj.velocity = mulXVec2ByScalar(obj.velocity, -1);
