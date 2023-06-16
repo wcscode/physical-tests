@@ -7,7 +7,7 @@ const gravity = f.vec2(0, .2);
 let balls = [];
 
 for(let i = 0; i < 2; i++) 
-    balls.push(f.moveableCircleFactory(Math.random() * canvas.width, 200, Math.random() * 25 + 5));
+    balls.push(f.moveableCircleFactory(Math.random() * canvas.width, 200, Math.floor(Math.random() * 25) + 5));
 
 
 let deltaDime = 0; 
@@ -19,15 +19,22 @@ function animate(tick) {
     lastTick = tick;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+    
     for(let i = 0; i < balls.length; i++) {
+
+        f.print(ctx,  `mass: ${balls[i].mass}`, i * 100 + 10, 20);
+        f.print(ctx,  `vel: x: ${parseInt(balls[i].velocity.x)}    y: ${parseInt(balls[i].velocity.y)}`, i * 100 + 10, 40);
+
         f.applyGravity(balls[i], gravity);
         if(clicked)
-            f.applyForce(balls[i], f.vec2(1, 0));
+            f.applyForce(balls[i], f.vec2(5, 0));
         f.setEdgesToCircle(balls[i], canvas);
        // balls[i].update(deltaTime);        
         balls[i].show(ctx);
     }
+
+   
+
     requestAnimationFrame(animate);    
 }
 

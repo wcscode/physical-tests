@@ -34,6 +34,10 @@ export function divVec2ByScalar(vector1, scalar) {
     return new vec2(vector1.x / scalar, vector1.y / scalar);
 }
 
+export function print(ctx, text, x, y) {
+    ctx.fillText(text, x, y);    
+}
+
 export function moveableCircleFactory(x, y, radius) {    
     return {
         position: vec2(x, y),
@@ -70,12 +74,19 @@ export function applyGravity(obj, force) {
 }
 
 export function setEdgesToCircle(obj, canvas) {
-    if (obj.position.x < obj.radius || obj.position.x > canvas.width - obj.radius) {
+    if (obj.position.x < obj.radius) {
         obj.velocity = mulXVec2ByScalar(obj.velocity, -1);
+        obj.position.x = obj.radius;
     }
     
+    if(obj.position.x > canvas.width - obj.radius){
+        obj.velocity = mulXVec2ByScalar(obj.velocity, -1);
+        obj.position.x = canvas.width - obj.radius;
+    }
+
     if (obj.position.y < obj.radius) {
-        obj.velocity = mulYVec2ByScalar(obj.velocity, -1);            
+        obj.velocity = mulYVec2ByScalar(obj.velocity, -1); 
+        obj.position.y = obj.radius;            
     }
 
     if (obj.position.y > canvas.height - obj.radius) {
