@@ -7,35 +7,41 @@ const gravity = f.vec2(0, .2);
 let balls = [];
 
 for(let i = 0; i < 2; i++) 
-    balls.push(f.moveableCircleFactory(Math.random() * canvas.width, 200, Math.floor(Math.random() * 25) + 5));
+    balls.push(f.moveableCircleFactory(Math.random() * canvas.width, 200, Math.random() * 25 + 5));
 
 
 let deltaDime = 0; 
 let lastTick = 0;
 let clicked = false;
+let colliding = false;
+
 function animate(tick) {
 
     let deltaTime = (tick - lastTick) / 1000;
     lastTick = tick;
 
+    if(f.colliding(balls[0], balls[1]))
+        colliding = true;    
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
+    // console.log(f.magnitude(f.distanceBetweenCircles(balls[0], balls[1])))
     for(let i = 0; i < balls.length; i++) {
 
-        f.print(ctx,  `mass: ${balls[i].mass}`, i * 100 + 10, 20);
-        f.print(ctx,  `vel: x: ${parseInt(balls[i].velocity.x)}    y: ${parseInt(balls[i].velocity.y)}`, i * 100 + 10, 40);
+        if(colliding){
+            let force = f.mulVec2ByScalar(balls[i].velocity, -1);
+            f.applyForce(balls[i], force);
+            colliding = false;
+        } 
 
-        f.applyGravity(balls[i], gravity);
         if(clicked)
-            f.applyForce(balls[i], f.vec2(5, 0));
-
+            f.applyForce(balls[i], f.vec2(1, 0));           
+            
+        f.applyGravity(balls[i], gravity);
         f.setEdgesToCircle(balls[i], canvas);
-       // balls[i].update(deltaTime);        
+    // balls[i].update(deltaTime);        
         balls[i].show(ctx);
     }
-
-   
-
+    
     requestAnimationFrame(animate);    
 }
 
