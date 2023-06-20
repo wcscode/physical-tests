@@ -23,7 +23,7 @@ function animate(tick) {
     for(let i = 0; i < balls.length; i++) {
 
         f.print(ctx,  `mass: ${balls[i].mass}`, i * 100 + 10, 20);
-        f.print(ctx,  `vel: x: ${parseInt(balls[i].velocity.x)}    y: ${parseInt(balls[i].velocity.y)}`, i * 100 + 10, 40);
+        f.print(ctx,  `vel: x: ${Math.trunc(balls[i].velocity.x, 2)}    y: ${Math.trunc(balls[i].velocity.y, 2)}`, i * 100 + 10, 40);
 
         f.applyGravity(balls[i], gravity);
         if(clicked)
