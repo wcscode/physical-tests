@@ -12,14 +12,14 @@ for(let i = 0; i < 2; i++)
     balls.push(new  Ball(ctx, Math.random() * canvas.width, 200, Math.random() * 25 + 5));
 
 
-let deltaDime = 0; 
+let deltaTime = 0; 
 let lastTick = 0;
 let clicked = false;
 let colliding = false;
 
 function animate(tick) {
 
-    let deltaTime = (tick - lastTick) / 1000;
+    deltaTime = (tick - lastTick) / 1000;
     lastTick = tick;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -41,12 +41,14 @@ function animate(tick) {
             const momentumTotal = momentum1 + momentum2;
             const vf1 = (momentumTotal - (mass2 * vTotal)) / mTotal;
             const vf2 = (momentumTotal + (mass1 * vTotal)) / mTotal;
-          //  f.applyForce(balls[0], f.vec2(vf1, 0));
-          //  f.applyForce(balls[1], f.vec2(vf2, 0));
+            balls[0].mulVec2ByScalar(balls[0].velocity, -1);
+            balls[1].mulVec2ByScalar(balls[1].velocity, -1);
+           // balls[0].applyForce(f.vec2(vf2, 0));
+          //  balls[1].applyForce(f.vec2(vf1, 0));
             //let force = f.mulVec2ByScalar(balls[i].velocity, -1);
            // f.applyForce(balls[i], force);
 
-         
+        //  console.log(momentumTotal)
             colliding = false;
         } 
 

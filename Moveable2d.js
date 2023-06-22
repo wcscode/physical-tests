@@ -14,7 +14,7 @@ export default class Moveable2d {
         this.mulVec2ByScalar(this.acceleration, 0);
     }
 
-    applyGravity(force) {    
+    applyGravity(force) {            
         this.addVec2(this.acceleration, force);
         this.addVec2(this.velocity, this.acceleration);
       //  obj.position = addVec2(obj.position, obj.velocity);

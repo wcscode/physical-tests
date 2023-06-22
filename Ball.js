@@ -9,9 +9,11 @@ export default class Ball extends Moveable2d{
         this.maxSpeed = 5;             
     }
        
-    update(deltaTime){ 
+    update(deltaDime){ 
         // this.velocity.y = Math.max(this.velocity.y, -this.maxSpeed);        
         // this.velocity.x = Math.max(this.velocity.x, -this.maxSpeed);  
+        //this.velocity.x = this.velocity.x * (1 + deltaTime);
+        //this.velocity.y = this.velocity.y * (1 + deltaTime);
          this.addVec2(this.position, this.velocity);
     }
 
