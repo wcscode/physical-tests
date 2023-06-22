@@ -5,11 +5,14 @@ export default class Ball extends Moveable2d{
     constructor(ctx, x, y, radius) {
         super(x, y, radius);
         this.ctx = ctx;
-        this.radius = radius;              
+        this.radius = radius; 
+        this.maxSpeed = 5;             
     }
        
     update(deltaTime){ 
-          this.addVec2(this.position, this.velocity);
+        // this.velocity.y = Math.max(this.velocity.y, -this.maxSpeed);        
+        // this.velocity.x = Math.max(this.velocity.x, -this.maxSpeed);  
+         this.addVec2(this.position, this.velocity);
     }
 
     show(){

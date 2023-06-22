@@ -84,17 +84,20 @@ export function setEdgesToCircle(obj, canvas, bounceGround = true) {
     }
 
     if (obj.position.y < obj.radius) {        
-        obj.velocity = mulYVec2ByScalar(obj.velocity, -1); 
+        obj.velocity.y *= -1;
         obj.position.y = obj.radius;            
     }
 
     if (obj.position.y > canvas.height - obj.radius) {
         if(bounceGround){
-            obj.velocity = mulYVec2ByScalar(obj.velocity, -1);
+            obj.velocity.y *= -1;  
+            obj.velocity.y  = Math.max(obj.velocity.y, -obj.maxSpeed);       
         }else{
             obj.velocity.y = 0;
         }
+
         obj.position.y = canvas.height - obj.radius; 
+        //console.log(" " + (obj.position.y + obj.radius))
     }
     
 }
